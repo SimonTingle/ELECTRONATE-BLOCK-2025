@@ -175,6 +175,4 @@ License
 
 MIT License. Use freely.
 
-⸻
 ![Localhost Screenshot](screenshot.png)
-
