@@ -1,0 +1,25 @@
+
+> electron-blocker@0.1.0 dev
+> vite
+
+▲ [WARNING] Cannot find base config file "./node_modules/@microsoft/rush-stack-compiler-4.7/includes/tsconfig-web.json" [tsconfig.json]
+
+    ../../../../../../../tsconfig.json:2:13:
+      2 │   "extends": "./node_modules/@microsoft/rush-stack-compiler-4.7/inc...
+        ╵              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+  VITE v5.4.21  ready in 174 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+TSConfckParseError:   Failed to scan for dependencies from entries:
+  /Users/simontingle/Desktop/WORK/PROGRAMMING/TEST_PROJECTS/3js_app_block/DeepSeekFirewall/electron-blocker-clean-2/index.html
+
+  failed to resolve "extends":"./node_modules/@microsoft/rush-stack-compiler-4.7/includes/tsconfig-web.json" in /Users/simontingle/tsconfig.json
+    at resolveExtends (file:///Users/simontingle/Desktop/WORK/PROGRAMMING/TEST_PROJECTS/3js_app_block/DeepSeekFirewall/electron-blocker-clean-2/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:18845:8)
+    at parseExtends (file:///Users/simontingle/Desktop/WORK/PROGRAMMING/TEST_PROJECTS/3js_app_block/DeepSeekFirewall/electron-blocker-clean-2/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:18780:24)
+    at parse$e (file:///Users/simontingle/Desktop/WORK/PROGRAMMING/TEST_PROJECTS/3js_app_block/DeepSeekFirewall/electron-blocker-clean-2/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:18638:23)
+    at async loadTsconfigJsonForFile (file:///Users/simontingle/Desktop/WORK/PROGRAMMING/TEST_PROJECTS/3js_app_block/DeepSeekFirewall/electron-blocker-clean-2/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:19433:20)
+    at async prepareEsbuildScanner (file:///Users/simontingle/Desktop/WORK/PROGRAMMING/TEST_PROJECTS/3js_app_block/DeepSeekFirewall/electron-blocker-clean-2/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49569:28)
+    at async file:///Users/simontingle/Desktop/WORK/PROGRAMMING/TEST_PROJECTS/3js_app_block/DeepSeekFirewall/electron-blocker-clean-2/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:50174:26

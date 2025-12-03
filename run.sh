@@ -1,61 +1,33 @@
 #!/bin/bash
-# run.sh — Robust launcher for DeepSeek Electron App
+set -e
 
-set -e  # Exit immediately if a command fails
-set -o pipefail  # Catch failures in piped commands
+echo "=== Booting DeepSeek Electron App Blocker ==="
 
-APP_NAME="DeepSeek Electron App Blocker"
-DEV_SERVER_URL="http://localhost:5173"
+# Kill old dev servers
+pkill -f "vite" >/dev/null 2>&1 || true
+pkill -f "electron" >/dev/null 2>&1 || true
 
-echo "=== Booting $APP_NAME ==="
+echo "[INFO] Starting Vite dev server..."
+npm run dev > .vite.log 2>&1 &
 
-# Check Node and NPM
-if ! command -v node >/dev/null 2>&1; then
-  echo "[ERROR] Node.js is not installed. Please install it first."
-  exit 1
-fi
+echo "[INFO] Waiting for Vite to become ready..."
 
-if ! command -v npm >/dev/null 2>&1; then
-  echo "[ERROR] npm is not installed. Please install it first."
-  exit 1
-fi
-
-# Install dependencies if node_modules is missing
-if [ ! -d "node_modules" ]; then
-  echo "Installing dependencies..."
-  npm install
-fi
-
-# Determine mode: development or production
-MODE=${1:-development}  # default to development if no argument provided
-
-if [ "$MODE" = "development" ]; then
-  echo "[INFO] Running in development mode (with HMR)..."
-  # Start Vite dev server in background
-  npm run dev &
-  VITE_PID=$!
-
-  # Wait for Vite dev server to start
-  echo "Waiting for Vite dev server..."
-  while ! curl --output /dev/null --silent --head --fail "$DEV_SERVER_URL"; do
+timeout=20
+elapsed=0
+while ! grep -q "Local:" .vite.log; do
     sleep 1
-  done
+    elapsed=$((elapsed+1))
 
-  # Launch Electron
-  echo "[INFO] Starting Electron..."
-  NODE_ENV=development npm run electron
+    if [ $elapsed -gt $timeout ]; then
+        echo "[ERROR] Vite failed to start or took too long."
+        echo "------ Vite Log ------"
+        cat .vite.log
+        exit 1
+    fi
+done
 
-  # Cleanup
-  echo "[INFO] Stopping Vite dev server..."
-  kill $VITE_PID
+echo "[INFO] Vite is ready. Starting Electron..."
 
-else
-  echo "[INFO] Running in production mode..."
-  echo "[INFO] Building frontend..."
-  npm run build
+export VITE_DEV_SERVER_URL="http://localhost:5173"
 
-  echo "[INFO] Launching Electron..."
-  NODE_ENV=production npm run electron
-fi
-
-echo "=== $APP_NAME terminated ==="
+npm run electron
