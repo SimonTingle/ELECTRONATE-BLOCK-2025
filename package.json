@@ -1,16 +1,13 @@
 {
-  "name": "electron-blocker",
+  "name": "project",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "main": "electron/main.js",
   "scripts": {
-  "dev": "vite",
-  "electron": "electron .",
-  "start": "concurrently -k \"npm run dev\" \"npm run electron\"",
-  "build": "vite build",
-  "preview": "vite preview"
-},
+    "build": "node canary.js && tsc",
+    "prepare": "node canary.js"
+  },
   "dependencies": {
     "framer-motion": "^10.12.16",
     "lucide-react": "^0.298.0",
